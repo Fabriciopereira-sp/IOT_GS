@@ -57,6 +57,10 @@ def chamar_gemini(prompt: str, imagem_base64: str | None = None, imagem_mime: st
             mime_type=imagem_mime or "image/jpeg",
         ))
 
+    raciocinio = None
+    if config.GEMINI_THINKING in ("minimal", "low", "medium", "high"):
+        raciocinio = types.ThinkingConfig(thinking_level=config.GEMINI_THINKING.upper())
+
     resposta = cliente.models.generate_content(
         model=config.GEMINI_MODEL,
         contents=partes,
@@ -65,6 +69,7 @@ def chamar_gemini(prompt: str, imagem_base64: str | None = None, imagem_mime: st
             temperature=0.1,
             response_mime_type="application/json",
             response_json_schema=ESQUEMA_RESPOSTA,
+            thinking_config=raciocinio,
         ),
     )
     return json.loads(resposta.text)
