@@ -11,7 +11,7 @@ PASTA_BASE_CONHECIMENTO = RAIZ / "base_conhecimento"
 
 # Credenciais e modelo vêm do ambiente (.env). Nunca colocar a chave no código.
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash").strip()
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite").strip()
 GEMINI_TIMEOUT_MS = int(os.getenv("GEMINI_TIMEOUT_MS", "60000"))
 # Nível de raciocínio do modelo: "low" deixa a resposta mais rápida (classificar não exige raciocínio longo).
 # Use "padrao" para não enviar essa configuração (modelos que não aceitam o parâmetro).

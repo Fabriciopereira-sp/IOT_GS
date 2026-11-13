@@ -61,8 +61,9 @@ def triar(pedido: TriagemRequest, usar_rag: bool = True) -> TriagemResponse:
                               pedido.imagem_base64, pedido.imagem_mime)
     except Exception as erro:  # sem internet, limite da API, JSON inválido, etc.
         log.warning("Falha na IA, usando modo reserva: %s", erro)
+        motivo = str(erro).split(".")[0][:80]
         return _resposta_por_regras(descricao, fontes, removidos,
-                                    "A IA não respondeu; usado o modo reserva por regras.")
+                                    f"A IA não respondeu ({motivo}); usado o modo reserva por regras.")
 
     # Validação da saída da IA contra o catálogo oficial (a IA nunca tem a palavra final sozinha).
     categoria = bruto.get("categoria")
